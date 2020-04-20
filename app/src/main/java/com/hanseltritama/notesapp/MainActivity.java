@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,9 +36,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         Intent intent = new Intent(getBaseContext(), AddNotesActivity.class);
-        Bundle args = new Bundle();
-        args.putSerializable("ARRAYLIST", mList);
-        intent.putExtra("notes_key", args);
         startActivity(intent);
         return super.onOptionsItemSelected(item);
 
@@ -47,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences sharedPreferences = this.getSharedPreferences("com.hanseltritama.notesapp", Context.MODE_PRIVATE);
+
         mList = new ArrayList<String>();
-        Bundle mBundle = new Bundle();
-        mList = mBundle.getStringArrayList("ARRAYLIST");
 
         if(mList == null) {
 
