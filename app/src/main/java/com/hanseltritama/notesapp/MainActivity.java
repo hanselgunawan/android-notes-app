@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -48,17 +49,12 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = this.getSharedPreferences("com.hanseltritama.notesapp", Context.MODE_PRIVATE);
 
-        mList = new ArrayList<String>();
-
-        if(mList == null) {
-
-            new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle("No Notes Found")
-                    .setPositiveButton("Got It!", null)
-                    .show();
-
-        } else {
+        if(sharedPreferences.contains("notes")) {
+            try {
+                mList = (ArrayList<String>) ObjectSerializer.deserialize(sharedPreferences.getString("notes", ObjectSerializer.serialize(new ArrayList<String>())));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
             mRecyclerView.setHasFixedSize(true);
@@ -66,6 +62,12 @@ public class MainActivity extends AppCompatActivity {
             mAdapter = new MainAdapter(mList);
             mRecyclerView.setAdapter(mAdapter);
 
+        } else {
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("No Notes Found")
+                    .setPositiveButton("Got It!", null)
+                    .show();
         }
 
     }
