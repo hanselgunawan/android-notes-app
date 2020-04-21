@@ -1,5 +1,7 @@
 package com.hanseltritama.notesapp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +37,7 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         return mList.size();
     }
 
-    public class  ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView textView;
 
@@ -43,6 +45,18 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             super(itemView);
 
             textView = itemView.findViewById(R.id.row_item);
+
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    int pos = getAdapterPosition();
+                    Intent intent = new Intent(view.getContext(), AddNotesActivity.class);
+                    intent.putExtra("ARRAY_POSITION", pos);
+                    view.getContext().startActivity(intent);
+
+                }
+            });
 
         }
     }

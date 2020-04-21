@@ -16,6 +16,7 @@ public class AddNotesActivity extends AppCompatActivity {
     ArrayList<String> mList;
     SharedPreferences sharedPreferences;
     EditText notesEditText;
+    Intent intent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,6 +30,11 @@ public class AddNotesActivity extends AppCompatActivity {
         if(sharedPreferences.contains("notes")) {
             try {
                 mList = (ArrayList<String>) ObjectSerializer.deserialize(sharedPreferences.getString("notes", ObjectSerializer.serialize(new ArrayList<String>())));
+                if(getIntent().getExtras() != null) {
+                    intent = getIntent();
+                    int position = intent.getExtras().getInt("ARRAY_POSITION");
+                    notesEditText.setText(mList.get(position));
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -42,7 +48,12 @@ public class AddNotesActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        mList.add(notesEditText.getText().toString());
+        if(getIntent().getExtras() == null) {
+            mList.add(notesEditText.getText().toString());
+        } else {
+            mList.set(intent.getExtras().getInt("ARRAY_POSITION"), notesEditText.getText().toString());
+            getIntent().removeExtra("ARRAY_POSITION");
+        }
         try {
             sharedPreferences.edit().putString("notes", ObjectSerializer.serialize(mList)).apply();
         } catch (IOException e) {
