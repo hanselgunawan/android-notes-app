@@ -8,6 +8,6 @@
         android:id="@+id/row_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onTextClicked" />
+        android:padding="8dp" />
 
 </LinearLayout>

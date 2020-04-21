@@ -2,6 +2,7 @@ package com.hanseltritama.notesapp;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             mAdapter = new MainAdapter(mList);
             mRecyclerView.setAdapter(mAdapter);
+            mRecyclerView.addItemDecoration(new DividerItemDecoration(mRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
         } else {
             new AlertDialog.Builder(this)
