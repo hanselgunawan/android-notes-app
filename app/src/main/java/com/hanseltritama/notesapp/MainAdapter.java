@@ -56,7 +56,7 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                     fragmentManager.beginTransaction()
                             .add(R.id.alert_dialog_layout, alertDialogFragment)
                             .commit();
-                    return false;
+                    return true;
                 }
             });
 
