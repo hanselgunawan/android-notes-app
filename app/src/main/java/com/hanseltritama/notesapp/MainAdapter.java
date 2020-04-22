@@ -1,6 +1,5 @@
 package com.hanseltritama.notesapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +9,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
@@ -45,6 +46,19 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             super(itemView);
 
             textView = itemView.findViewById(R.id.row_item);
+
+            textView.setOnLongClickListener(new View.OnLongClickListener() {
+
+                @Override
+                public boolean onLongClick(View view) {
+                    AlertDialogFragment alertDialogFragment = new AlertDialogFragment();
+                    FragmentManager fragmentManager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .add(R.id.alert_dialog_layout, alertDialogFragment)
+                            .commit();
+                    return false;
+                }
+            });
 
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
