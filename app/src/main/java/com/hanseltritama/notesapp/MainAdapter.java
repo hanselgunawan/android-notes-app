@@ -1,6 +1,8 @@
 package com.hanseltritama.notesapp;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,8 +53,14 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
                 @Override
                 public boolean onLongClick(View view) {
+
+                    Bundle arguments = new Bundle();
+                    int pos = getAdapterPosition();
+                    arguments.putInt("ARRAY_POSITION", pos);
+
                     AlertDialogFragment alertDialogFragment = new AlertDialogFragment();
                     FragmentManager fragmentManager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
+                    alertDialogFragment.setArguments(arguments);
                     fragmentManager.beginTransaction()
                             .add(R.id.alert_dialog_layout, alertDialogFragment)
                             .commit();

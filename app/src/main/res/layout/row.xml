@@ -8,6 +8,7 @@
         android:id="@+id/row_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/animated_color"
         android:padding="8dp" />
 
 </LinearLayout>
